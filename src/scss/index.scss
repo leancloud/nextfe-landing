@@ -1,0 +1,214 @@
+@charset "UTF-8";
+@import "./varibles";
+@import "./_reset.scss";
+$content-min-widht:775px;
+$content-max-widht:775px;
+html{
+  font-family: "PingFang SC Regular", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+}
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+header,
+footer {
+  flex: 1;
+}
+header{
+  background-image: url(../assert/img/bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  padding-top: 20px;
+  .content{
+    max-width: $content-max-widht;
+    width: 100%;
+    display: inline-block;
+  }
+  .title{
+    font-family: "PingFang SC Light";
+    margin: 100px 20px;
+    font-size: 31px;
+    color: #FFFFFF;
+    line-height: 64px;
+    mark{
+      background: none;
+      color: inherit;
+      font-size: 44px;
+      font-weight: 600;
+    }
+  }
+  .logo{
+    font-family: "Baskerville";
+    font-size: 20px;
+    color: #FFFFFF;
+    font-weight: 550;
+    line-height: 39px;
+    text-align: left;
+    margin-left: 10px;
+    &::before{
+      background-image: url(../assert/img/logo.png);
+      content: ' ';
+      height: 39px;
+      width: 35px;
+      display: inline-block;
+      margin-right: 5px;
+      float: left;
+    }
+  }
+  footer{
+    background-color:rgba(0,0,0,.24);
+    p{
+      color: #FFFFFF;
+    }
+  }
+}
+
+article{
+  margin: 30px auto;
+  h4{
+    font-size: 20px;
+    line-height: 28px;
+  }
+  p{
+    font-size: 14px;
+    color: #585858;
+    line-height: 20px;
+    margin-top: 10px;
+  }
+}
+section{
+  padding-top: 15px;
+  padding-bottom: 10px;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+
+  .left,.right{
+    flex: 1;
+  }
+  .mid{
+    max-width: $content-max-widht;
+    width: 100%;
+    margin: 0 15px;
+  }
+  &.content{
+    background-color: #FFFFFF;
+
+    article{
+      h4{
+        color: #4A90E2;
+      }
+      a{
+        color: #4E95EC
+      }
+    }
+  }
+  &.worker{
+    background-color:  rgba($color: #e3e6eb, $alpha: .3);
+    .button{
+      color: white;
+      background-color: #f5a623;
+      font-size: 16px;
+      line-height: 22px;
+      padding: 7px 12px;
+      margin-top: 30px;
+      border-radius: 3px;
+    }
+    article{
+      h4{
+        font-family:"PingFang SC Medium";
+        color: #333333;
+      }
+      a{
+        color: #f5a623
+      }
+    }
+  }
+}
+footer{
+  background-color: #E3E6EB;
+  text-align: center;
+  padding: 25px 0;
+  p{
+    font-size: 12px;
+    line-height: 26px;
+    color: #585858;
+  }
+  a{
+    color: #585858;
+    text-decoration-line: none;
+  }
+}
+.group{
+  max-width: 600px;
+  width: 90vw;
+  display: inline-block;
+  margin: 15px 0;
+  .group-input{
+    width: 69%;
+    min-width: 100px;
+    padding: 8px 0;
+    padding-left: 10px;
+    float: left;
+  }
+  .group-button{
+    width: 18%;
+    background-color: #489CFF;
+    color: #FFFFFF;
+    padding: 13.5px;
+    float: left;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+}
+.pagenation{
+  font-size: 14px;
+  line-height: 17px;
+  color: #A1A1A1;
+  display: flex;
+  justify-content: space-between;
+  .page-button{
+    border: 1px solid #E3E6EB;
+    border-radius: 14px;
+    padding: 5px 19px;
+  }
+  .pre::before{
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #979797;
+    border-right: 1px solid #979797;
+    transform: rotate(-135deg);
+    position: relative;
+    right: 5px;
+  }
+  .next::after{
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-top: 1px solid #979797;
+    border-right: 1px solid #979797;
+    transform: rotate(45deg);
+    position: relative;
+    left: 5px;
+  }
+}
+
+@media screen and (max-width: $content-min-widht) {
+  header{
+    .title{
+      margin: 70px 20px;
+      font-size: 20px;
+      color: #FFFFFF;
+      line-height: 48px;
+      mark{
+        font-size: 30px;
+        font-weight: 600;
+      }
+    }
+  }
+}

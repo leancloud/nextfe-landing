@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="textml; charset=utf-8" />
+  <meta name="full-screen" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="expires" content="0">
+  <title>邮件营销</title>
+  <link rel="stylesheet" type="text/css" href="./css/index.css">
+
+</head>
+
+<body>
+  <header>
+    <div class="content">
+      <div class="logo"> New Frontend Weekly</div>
+          <p class="title">收集整理各类 <mark>知识、见识、见闻</mark> 内容链接，一份陪伴程序员前进的订阅邮件，每周五发布</p>
+
+    </div>
+    <footer>
+      <div class="group">
+        <input type="text" placeholder="您的邮件地址" class="group-input">
+        <span class="group-button">订阅</span>
+      </div>
+      <p>我们绝不会分享您的电子邮件地址,您可以随时退出。</p>
+    </footer>
+  </header>
+  <main>
+    <section class="content">
+      <div class="left"></div>
+      <div class="mid" id="content">
+        <article>
+          <h4>工程师如何决定晚上吃什么？</h4>
+          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
+          <a>zhihu.com</a>
+        </article>
+        <article>
+          <h4>工程师如何决定晚上吃什么？</h4>
+          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
+          <a>zhihu.com</a>
+        </article>
+        <article>
+          <h4>工程师如何决定晚上吃什么？</h4>
+          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
+          <a>zhihu.com</a>
+        </article>
+        <article>
+          <h4>工程师如何决定晚上吃什么？</h4>
+          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
+          <a>zhihu.com</a>
+        </article>
+      </div>
+      <div class="right"></div>
+
+    </section>
+    <section class="worker">
+      <div class="left"></div>
+      <div class="mid" id="worker">
+        <article>
+          <span class="button">工作机会</span>
+        </article>
+        <article>
+          <h4>工程师如何决定晚上吃什么？</h4>
+          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
+          <a>zhihu.com</a>
+        </article>
+        <article>
+          <h4>工程师如何决定晚上吃什么？</h4>
+          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
+          <a>zhihu.com</a>
+        </article>
+        <article>
+          <h4>工程师如何决定晚上吃什么？</h4>
+          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
+          <a>zhihu.com</a>
+        </article>
+        <article>
+          <h4>工程师如何决定晚上吃什么？</h4>
+          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
+          <a>zhihu.com</a>
+        </article>
+
+        <article class="pagenation">
+            <span class="page-button pre">上一页</span>
+            20/32
+            <span class="page-button next">下一页</span>
+        </article>
+      </div>
+      <div class="right"></div>
+    </section>
+  </main>
+  <footer>
+    <div class="group">
+      <input type="text" placeholder="您的邮件地址" class="group-input">
+      <span class="group-button">订阅</span>
+    </div>
+    <p>我们绝不会分享您的电子邮件地址,您可以随时退出。</p>
+    <p>
+      联系方式：<a href="mailto:Newfrontendweekly0@163.com">Newfrontendweekly0@163.com</a>
+    </p>
+  </footer>
+</body>
+<script src="./assert/lib/jquery.min.js"></script>
+<script src="./assert/lib/template.js"></script>
+<script src="./js/app.js"></script>
+<script id="tpl" type="text/html">
+  <ul>
+      <%for(var i = 0; i < list.length; i++) {%>
+      <li><%:=list[i].name%></li>
+      <%}%>
+  </ul>
+</script>
+<script>
+$(() => {
+  window.init('IndexInit')
+});
+</script>
+</html>
