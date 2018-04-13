@@ -58,7 +58,8 @@ gulp.task('copyfile', () => gulp.src(config.copyfile)
 
 
 gulp.task('gulpscss', () => gulp.src(config.scss.src)
-  .pipe(scss().on('error', scss.logError))
+  .pipe(plumber())
+  .pipe(scss())
   .pipe(autoprefixer(config.scss.autoprefixer))
   .pipe(gulp.dest(`${build}css`))
   .pipe(rename({ suffix: '.min' }))

@@ -10,20 +10,19 @@
   <meta http-equiv="expires" content="0">
   <title>邮件营销</title>
   <link rel="stylesheet" type="text/css" href="./css/index.css">
-
 </head>
 
 <body>
   <header>
     <div class="content">
       <div class="logo"> New Frontend Weekly</div>
-          <p class="title">收集整理各类 <mark>知识、见识、见闻</mark> 内容链接，一份陪伴程序员前进的订阅邮件，每周五发布</p>
-
+      <p class="title">收集整理各类
+        <mark>知识、见识、见闻</mark> 内容链接，一份陪伴程序员前进的订阅邮件，每周五发布</p>
     </div>
     <footer>
       <div class="group">
-        <input type="text" placeholder="您的邮件地址" class="group-input">
-        <span class="group-button">订阅</span>
+        <input type="email" placeholder="您的邮件地址" class="group-input" id="header-email">
+        <span class="group-button" onclick="SubscribeEmail('header-email')">订阅</span>
       </div>
       <p>我们绝不会分享您的电子邮件地址,您可以随时退出。</p>
     </footer>
@@ -32,90 +31,69 @@
     <section class="content">
       <div class="left"></div>
       <div class="mid" id="content">
-        <article>
-          <h4>工程师如何决定晚上吃什么？</h4>
-          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
-          <a>zhihu.com</a>
-        </article>
-        <article>
-          <h4>工程师如何决定晚上吃什么？</h4>
-          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
-          <a>zhihu.com</a>
-        </article>
-        <article>
-          <h4>工程师如何决定晚上吃什么？</h4>
-          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
-          <a>zhihu.com</a>
-        </article>
-        <article>
-          <h4>工程师如何决定晚上吃什么？</h4>
-          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
-          <a>zhihu.com</a>
-        </article>
       </div>
       <div class="right"></div>
-
     </section>
     <section class="worker">
       <div class="left"></div>
-      <div class="mid" id="worker">
-        <article>
-          <span class="button">工作机会</span>
-        </article>
-        <article>
-          <h4>工程师如何决定晚上吃什么？</h4>
-          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
-          <a>zhihu.com</a>
-        </article>
-        <article>
-          <h4>工程师如何决定晚上吃什么？</h4>
-          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
-          <a>zhihu.com</a>
-        </article>
-        <article>
-          <h4>工程师如何决定晚上吃什么？</h4>
-          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
-          <a>zhihu.com</a>
-        </article>
-        <article>
-          <h4>工程师如何决定晚上吃什么？</h4>
-          <p>对于我们这些每天晚上都要在外解决吃饭问题的单身青年来说，吃什么确实是一个比较恼人的问题。</p>
-          <a>zhihu.com</a>
-        </article>
-
-        <article class="pagenation">
-            <span class="page-button pre">上一页</span>
-            20/32
-            <span class="page-button next">下一页</span>
-        </article>
+      <div class="mid">
+        <div id="worker">
+        </div>
+        <article class="pagenation"></article>
       </div>
       <div class="right"></div>
     </section>
   </main>
   <footer>
     <div class="group">
-      <input type="text" placeholder="您的邮件地址" class="group-input">
-      <span class="group-button">订阅</span>
+      <input type="email" placeholder="您的邮件地址" class="group-input" id="foot-email">
+      <span class="group-button" onclick="SubscribeEmail('foot-email')">订阅</span>
     </div>
     <p>我们绝不会分享您的电子邮件地址,您可以随时退出。</p>
     <p>
-      联系方式：<a href="mailto:Newfrontendweekly0@163.com">Newfrontendweekly0@163.com</a>
+      联系方式：
+      <a href="mailto:Newfrontendweekly0@163.com">Newfrontendweekly0@163.com</a>
     </p>
   </footer>
 </body>
+
 <script src="./assert/lib/jquery.min.js"></script>
-<script src="./assert/lib/template.js"></script>
+<script src="./assert/lib/template-web.js"></script>
+<script src="./assert/lib/jquery.loading.min.js"></script>
+<script src="./assert/lib/notifIt.min.js"></script>
 <script src="./js/app.js"></script>
-<script id="tpl" type="text/html">
-  <ul>
-      <%for(var i = 0; i < list.length; i++) {%>
-      <li><%:=list[i].name%></li>
-      <%}%>
-  </ul>
-</script>
 <script>
-$(() => {
-  window.init('IndexInit')
-});
+  $(() => {
+    window.init('IndexInit')
+  });
+
 </script>
+
 </html>
+<div id="fountainG">
+  <div id="fountainG_1" class="fountainG"></div>
+  <div id="fountainG_2" class="fountainG"></div>
+  <div id="fountainG_3" class="fountainG"></div>
+  <div id="fountainG_4" class="fountainG"></div>
+  <div id="fountainG_5" class="fountainG"></div>
+  <div id="fountainG_6" class="fountainG"></div>
+  <div id="fountainG_7" class="fountainG"></div>
+  <div id="fountainG_8" class="fountainG"></div>
+</div>
+<div class="windows8" id="windows8">
+  <div class="wBall" id="wBall_1">
+    <div class="wInnerBall"></div>
+  </div>
+  <div class="wBall" id="wBall_2">
+    <div class="wInnerBall"></div>
+  </div>
+  <div class="wBall" id="wBall_3">
+    <div class="wInnerBall"></div>
+  </div>
+  <div class="wBall" id="wBall_4">
+    <div class="wInnerBall"></div>
+  </div>
+  <div class="wBall" id="wBall_5">
+    <div class="wInnerBall"></div>
+  </div>
+</div>
