@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+html{
+  font-family: "PingFang SC Regular","sans-serif", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+}
 @import "./_reset.scss";
 @import "./jquery.loading.min.scss";
 @import "./_animation.scss";
@@ -7,9 +10,6 @@
 @import "./varibles";
 $content-min-widht:775px;
 $content-max-widht:775px;
-html{
-  font-family: "PingFang SC Regular","sans-serif", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
-}
 body {
   display: flex;
   min-height: 100vh;
@@ -160,6 +160,7 @@ footer{
     padding-left: 10px;
     float: left;
     margin-right: -1px;
+    min-height: 22px // safari 展示错误
   }
   .group-button{
     width: 18%;

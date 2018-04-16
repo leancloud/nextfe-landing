@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="textml; charset=utf-8" />
   <meta name="full-screen" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="expires" content="0">
   <title>邮件营销</title>
@@ -63,10 +63,9 @@
 <script src="./assert/lib/notifIt.min.js"></script>
 <script src="./js/app.js"></script>
 <script>
-  $(() => {
-    window.init('IndexInit')
+  $(document).ready(function () {
+      window.init('IndexInit')
   });
-
 </script>
 
 </html>

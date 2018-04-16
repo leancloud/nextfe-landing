@@ -25,13 +25,14 @@ const config = {
   scss: {
     src: './src/scss/index.scss',
     autoprefixer: {
-      comPatibility: ['last 2 versions', 'ie >= 9', 'Android >= 2.3'],
+      comPatibility: ['last 2 versions', 'ie >= 8', 'Android >= 2.3'],
       remove: false
     },
     cleanCSS: {
       advanced: true,
-      compatibility: '*',
-      keepBreaks: true
+      keepBreaks: true,
+      compatibility: 'ie8',
+      keepSpecialComments: '*' // 保留所有特殊前缀
     }
   },
   js: './src/js/**.js',
