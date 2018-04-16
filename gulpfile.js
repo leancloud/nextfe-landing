@@ -35,7 +35,7 @@ const config = {
     }
   },
   js: './src/js/**.js',
-  copyfile: './src/*assert/**',
+  copyfile: ['./src/*assert/**'],
   server: {
     root: build,
     port: 8090,

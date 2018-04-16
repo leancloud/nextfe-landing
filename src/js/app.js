@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/3.0';
+const BASE_URL = 'http://lcmidserver.leanapp.cn/3.0';
 const tplMap = {
   indexTpl: `
           {{if hasworker}}
