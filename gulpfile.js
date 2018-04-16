@@ -72,20 +72,8 @@ gulp.task('html', () => {
     })
     .pipe(revReplace, { manifest });
 
-    // .pipe(gulpif(ispord, prodHtml()))
   return gulp.src(config.html)
     .pipe(gulpif(ispord, prodHtml()))
-    // .pipe(htmlmin({
-    //   removeComments: true,
-    //   collapseWhitespace: true,
-    //   collapseBooleanAttributes: true,
-    //   removeEmptyAttributes: true,
-    //   removeScriptTypeAttributes: true,
-    //   removeStyleLinkTypeAttributes: true,
-    //   minifyJS: true,
-    //   minifyCSS: true
-    // }))
-    // .pipe(revReplace({ manifest }))
     .pipe(gulp.dest(build));
 });
 
@@ -123,13 +111,6 @@ gulp.task('babelJs', (done) => {
     .pipe(gulpif(ispord, prodJS()));
   done();
 });
-
-// gulp.task('revreplace', () => {
-//   const manifest = gulp.src(`${build}rev/**/rev-manifest.json`);
-//   return gulp.src(config.html)
-//     .pipe(revReplace({ manifest }))
-//     .pipe(gulp.dest(opt.distFolder));
-// });
 
 gulp.task('copyfile', () => gulp.src(config.copyfile)
   .pipe(gulp.dest(build)));
