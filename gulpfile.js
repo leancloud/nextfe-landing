@@ -4,14 +4,21 @@ const scss = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const del = require('gulp-clean');
 const cleanCSS = require('gulp-clean-css');
+const htmlmin = require('gulp-htmlmin');
+const uglify = require('gulp-uglify');
 const eslint = require('gulp-eslint');
 const babel = require('gulp-babel');
-const rename = require('gulp-rename');
+// const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
+const gulpif = require('gulp-if');
 const path = require('path');
 const fs = require('fs');
+const lazypipe = require('lazypipe');
+const rev = require('gulp-rev');
+const revReplace = require('gulp-rev-replace');
 
-
+const env = process.env.NODE_ENV || 'prod';
+const ispord = env === 'prod';
 const build = './build/';
 const config = {
   html: './src/html/**/**.html',
@@ -50,75 +57,106 @@ const config = {
   ]
 };
 
-gulp.task('html', () => gulp.src(config.html)
-  .pipe(gulp.dest(build)));
+gulp.task('html', () => {
+  const manifest = gulp.src(`${build}rev/**/rev-manifest.json`);
+  const prodHtml = lazypipe()
+    .pipe(htmlmin, {
+      removeComments: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      removeEmptyAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      minifyJS: true,
+      minifyCSS: true
+    })
+    .pipe(revReplace, { manifest });
+
+    // .pipe(gulpif(ispord, prodHtml()))
+  return gulp.src(config.html)
+    .pipe(gulpif(ispord, prodHtml()))
+    // .pipe(htmlmin({
+    //   removeComments: true,
+    //   collapseWhitespace: true,
+    //   collapseBooleanAttributes: true,
+    //   removeEmptyAttributes: true,
+    //   removeScriptTypeAttributes: true,
+    //   removeStyleLinkTypeAttributes: true,
+    //   minifyJS: true,
+    //   minifyCSS: true
+    // }))
+    // .pipe(revReplace({ manifest }))
+    .pipe(gulp.dest(build));
+});
+
+gulp.task('gulpscss', (done) => {
+  const scssProd = lazypipe()
+    .pipe(cleanCSS, config.scss.cleanCSS)
+    .pipe(rev)
+    .pipe(gulp.dest, `${build}css`)
+    .pipe(rev.manifest)
+    .pipe(gulp.dest, `${build}rev/css`);
+
+  gulp.src(config.scss.src)
+    .pipe(plumber())
+    .pipe(scss())
+    .pipe(autoprefixer(config.scss.autoprefixer))
+    .pipe(gulp.dest(`${build}css`))
+    .pipe(gulpif(ispord, scssProd()));
+  done();
+});
+
+gulp.task('babelJs', (done) => {
+  const prodJS = lazypipe()
+    .pipe(uglify)
+    .pipe(rev)
+    .pipe(gulp.dest, `${build}js`)
+    .pipe(rev.manifest)
+    .pipe(gulp.dest, `${build}rev/js`);
+
+  gulp.src(config.js)
+    .pipe(plumber())
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(babel())
+    .pipe(gulp.dest(`${build}js`))
+    .pipe(gulpif(ispord, prodJS()));
+  done();
+});
+
+// gulp.task('revreplace', () => {
+//   const manifest = gulp.src(`${build}rev/**/rev-manifest.json`);
+//   return gulp.src(config.html)
+//     .pipe(revReplace({ manifest }))
+//     .pipe(gulp.dest(opt.distFolder));
+// });
 
 gulp.task('copyfile', () => gulp.src(config.copyfile)
   .pipe(gulp.dest(build)));
 
-
-gulp.task('gulpscss', () => gulp.src(config.scss.src)
-  .pipe(plumber())
-  .pipe(scss())
-  .pipe(autoprefixer(config.scss.autoprefixer))
-  .pipe(gulp.dest(`${build}css`))
-  .pipe(rename({ suffix: '.min' }))
-  .pipe(cleanCSS(config.scss.cleanCSS))
-  .pipe(gulp.dest(`${build}css`)));
-
-
-gulp.task('clean', () => {
+gulp.task('clean', (done) => {
   const stat = fs.existsSync(path.join(__dirname, build));
   if (stat) {
     return gulp.src(build, { read: false })
       .pipe(del());
   }
-  return Promise.resolve();
+  done();
 });
-gulp.task('babel', () => gulp.src(config.js)
-  .pipe(plumber())
-  .pipe(babel())
-  .pipe(gulp.dest(`${build}js`))
-  .pipe(rename({ suffix: '.min' }))
-  .pipe(gulp.dest(`${build}js`)));
 
-gulp.task('jsLint', () => gulp.src(config.js)
-  .pipe(plumber())
-  .pipe(eslint())
-  .pipe(eslint.format()));
 
-gulp.task('babelJs', gulp.series('jsLint', 'babel'));
-
-gulp.task('server', () => connect.server(config.server));
-gulp.task('watch', () => {
+gulp.task('watch-server', (done) => {
   if (config && config.watch) {
     config.watch.forEach((v) => {
       gulp.watch(v.src, gulp.task(v.task));
     });
   }
+  connect.server(config.server);
+  done();
 });
 
-gulp.task('watch-server', gulp.parallel('server', 'watch'));
-
-gulp.task('build', gulp.parallel('html', 'babelJs', 'gulpscss', 'copyfile'));
+gulp.task(
+  'build',
+  gulp.series('clean', gulp.parallel('babelJs', 'gulpscss', 'copyfile'), 'html')
+);
 
 gulp.task('default', gulp.series('clean', 'build', 'watch-server'));
-
-
-// const  spritesmith = require('gulp.spritesmith');
-// function sprite() {
-//     return gulp.src(['./cnValentine/images/icons/hd.png', './cnValentine/images/03_10.png'])
-//         .pipe(spritesmith({
-//             imgName: 'icons.png', // 生成的图片
-//             cssName: 'icons.scss', // 生成的sass文件
-//             cssFormat: 'scss',
-//             algorithm: 'binary-tree', // 图标的排序方式
-//             padding: 8,
-//             cssTemplate: './cnValentine/handlebarsInheritance.scss.handlebars',
-//             cssVarMap: function(sprite) {
-//                 sprite.name = 'icon-' + sprite.name;
-//             }
-//         }))
-//         .pipe(gulp.dest('./test'));
-
-// }

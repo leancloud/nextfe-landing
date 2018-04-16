@@ -126,7 +126,8 @@ const util = new Utils();
  */
 
 function GetCampaigns(nextpage = 1) {
-  $('main').loading({ overlay: $('#fountainG'), shownClass: 'show', start: true });
+  $('main').loading('start');
+  $('body').loading('stop');
   const pagenation = {
     count: 1, // 每页间隔
     offset: 0
@@ -169,15 +170,36 @@ function GetCampaigns(nextpage = 1) {
       console.log(err);
     })
     .always(() => {
-      $('main').loading('destroy');
+      $('main').loading('stop');
     });
 }
-
-function SubscribeEmail(input) {
+/**
+ * 邮件订阅
+ * @param {*} input
+ */
+// eslint-disable-next-line
+function SubscribeEmail(element, event) {
   const subEmailUrl = '/lists/248ba7cad4/members';
-  const email = $.trim($(`#${input}`).val());
+  const email = $.trim($(`#${element}`).val());
+  const notifmsg = {
+    info: {
+      type: 'info',
+      position: 'center',
+      bgcolor: '#F5F5F5',
+      color: '#44B99B',
+      opacity: 0.8,
+      msg: ''
+    },
+    error: {
+      type: 'error',
+      position: 'center',
+      opacity: 0.8,
+      msg: ''
+    }
+  };
   if (util.checkEmail(email)) {
-    $('body').loading({ overlay: $('#windows8'), shownClass: 'show', start: true });
+    $('body').loading('start');
+    $(event.target).attr('disabled', true);
     util
       .http(
         subEmailUrl,
@@ -190,42 +212,26 @@ function SubscribeEmail(input) {
       )
       .then(
         () => {
-          window.notif({
-            type: 'info',
-            msg: '成功订阅邮件感谢您的支持!',
-            position: 'center',
-            bgcolor: '#F5F5F5',
-            color: '#44B99B',
-            opacity: 0.8
-          });
+          notifmsg.info.msg = '成功订阅邮件感谢您的支持!';
+          window.notif(notifmsg.info);
         },
         (err) => {
-          console.log(err.responseJSON.title);
-          console.log(err.responseJSON.title.indexOf('Exists') > -1);
           if (err.responseJSON.title.indexOf('Exists') > -1) {
-            window.notif({
-              type: 'info',
-              msg: '您已经订阅，感谢您的支持!',
-              position: 'center',
-              bgcolor: '#F5F5F5',
-              color: '#44B99B',
-              opacity: 0.8
-            });
+            notifmsg.info.msg = '您已经订阅，感谢您的支持!';
+            window.notif(notifmsg.info);
           } else {
-            window.notif({
-              type: 'error',
-              msg: '订阅失败!',
-              position: 'center',
-              opacity: 0.8
-            });
+            notifmsg.error.msg = '订阅失败';
+            window.notif(notifmsg.error);
           }
         }
       )
       .always(() => {
-        $('body').loading('destroy');
+        $(event.target).attr('disabled', false);
+        $('body').loading('stop');
       });
   } else {
-    console.log('error email');
+    notifmsg.error.msg = '请输入正确的邮箱地址!';
+    window.notif(notifmsg.error);
   }
 }
 
@@ -242,6 +248,18 @@ function IndexInit() {
   };
   window.prePage = GetCampaigns;
   window.nextPage = GetCampaigns;
+  $('body').loading({
+    overlay: $('#windows8'),
+    shownClass: 'showbody',
+    start: false,
+    onStart: () => false
+  });
+  $('main').loading({
+    overlay: $('#fountainG'),
+    shownClass: 'showmain',
+    start: false,
+    onStart: () => false
+  });
   GetCampaigns();
 }
 

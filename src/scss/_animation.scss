@@ -6,7 +6,10 @@
   background-color: #fff;
   opacity: .75;
 }
-.show{
+.showmain{
+  display: flex !important;
+}
+.showbody{
   display: flex !important;
 }
 
