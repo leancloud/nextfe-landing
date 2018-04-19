@@ -8,10 +8,17 @@ const tplMap = {
           {{/if}}
           {{each title}}
             <article>
-                <h4>{{title[$index]}}</h4>
-                <p>{{content[$index]}}</p>
-                <a href="{{link[$index]}}" target="_blank">
-                {{link[$index] | url}}</a>
+                {{if imgs}}
+                  <div class="content-img">
+                    <img src="{{imgs[$index]}}">
+                  </div>
+                {{/if}}
+                <div class=" {{if imgs}}content-text{{/if}}">
+                  <h4>{{title[$index]}}</h4>
+                  <p>{{content[$index]}}</p>
+                  <a href="{{link[$index]}}" target="_blank">
+                  {{link[$index] | url}}</a>
+                </div>
             </article>
           {{/each}}`,
   pagenationTpl: `
@@ -99,6 +106,7 @@ Utils.prototype.plainText = function plainText(text) {
     content: [],
     link: []
   };
+
   worker.forEach((v) => {
     const arr = v.split('\n');
     arr.forEach((data) => {
@@ -157,6 +165,17 @@ function GetCampaigns(nextpage = 1) {
       if (data && data.plain_text) {
         const text = util.plainText(data.plain_text);
         if (text && text.contentResult) {
+          if (data.html) {
+            text.contentResult.imgs = [];
+            const imgs = $('img', $(data.html));
+            if (imgs.length > 0) {
+              imgs.each((index, ele) => {
+                if (index !== 0) {
+                  text.contentResult.imgs.push($(ele)[0].src);
+                }
+              });
+            }
+          }
           $('#content').html(template.render(tplMap.indexTpl, text.contentResult));
           if (text.workerresult.title.length > 0) {
             text.workerresult.hasworker = true;

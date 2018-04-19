@@ -71,6 +71,7 @@ header{
 
 article{
   margin: 30px auto;
+  display: flex;
   h4{
     font-size: 20px;
     line-height: 28px;
@@ -80,6 +81,20 @@ article{
     color: #585858;
     line-height: 20px;
     margin-top: 10px;
+  }
+  .content-img{
+    width: 30%;
+    min-width: 280px;
+    max-width: 280px;
+    img{
+      width: 280px;
+      height: 160px;
+    }
+  }
+  .content-text{
+    width: 70%;
+    background-color: #ffffff;
+    padding:21px;
   }
 }
 section{
@@ -101,8 +116,7 @@ section{
     }
   }
   &.content{
-    background-color: #FFFFFF;
-
+    background-color:  rgba($color: #e3e6eb, $alpha: .3);
     article{
       h4{
         color: #4A90E2;
@@ -113,7 +127,7 @@ section{
     }
   }
   &.worker{
-    background-color:  rgba($color: #e3e6eb, $alpha: .3);
+    background-color: #FFFFFF;
     .button{
       color: white;
       background-color: #f5a623;

@@ -18,6 +18,7 @@ module.exports ={
   "rules": {
     'no-var': 'error',
     "no-console": "off",
+    "no-param-reassign":"off",
     'semi': [2, 'always'],
     'quotes': ['error', 'single'],
     'linebreak-style': ['error', 'unix'],
