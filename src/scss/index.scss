@@ -248,10 +248,14 @@ footer{
   }
   #content{
     article{
-      flex-direction: column
+      flex-direction: column;
+      h4,p,a{
+        padding: 0 10px;
+      }
     }
     .content-text{
       width: 100%;
+      padding: 15px 0px;
     }
     .content-img{
       width: 100%;
