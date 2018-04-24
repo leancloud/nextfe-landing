@@ -7,8 +7,8 @@
     "start": "NODE_ENV=prod node server/server.js",
     "gulp": "NODE_ENV=dev gulp",
     "build": "NODE_ENV=prod gulp build",
-    "lean":"lean deploy && lean publish",
-    "publish":"npm run build && npm run lean"
+    "lean": "lean deploy && lean publish",
+    "publish": "npm run build && npm run lean"
   },
   "repository": {},
   "keywords": [],
@@ -16,13 +16,13 @@
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.2",
+    "babel-eslint": "^8.2.3",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "gulp": "github:gulpjs/gulp#4.0",

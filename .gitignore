@@ -3,3 +3,4 @@ build
 .leancloud
 .vscode
 .DS_*
+*lock.json
