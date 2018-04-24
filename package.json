@@ -51,6 +51,6 @@
     "jquery-easy-loading": "^1.3.0"
   },
   "engines": {
-    "node": "9.3.x"
+    "node": "9.x.x"
   }
 }
