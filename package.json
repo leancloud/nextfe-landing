@@ -7,7 +7,7 @@
     "start": "NODE_ENV=prod node server/server.js",
     "gulp": "NODE_ENV=dev gulp",
     "build": "NODE_ENV=prod gulp build",
-    "lean": "lean deploy && lean publish",
+    "lean": "npm run build && lean deploy && lean publish",
     "publish": "npm run build && npm run lean"
   },
   "repository": {},
