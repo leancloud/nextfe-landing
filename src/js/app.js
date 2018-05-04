@@ -112,7 +112,7 @@ Utils.prototype.plainText = function plainText(text) {
     arr.forEach((data) => {
       if (data.indexOf(' —— ') > -1) {
         workerresult.title.push(data);
-      } else if (/^\d*K-\d*K/.test(data)) {
+      } else if (/^\d*K-\d*K/.test(data) || data.indexOf('全职') > -1 || data.indexOf('兼职') > -1) {
         workerresult.content.push(data);
       } else if (this.checkURL(data)) {
         // eslint-disable-next-line
@@ -121,6 +121,7 @@ Utils.prototype.plainText = function plainText(text) {
       }
     });
   });
+  console.log(workerresult);
   return {
     contentResult,
     workerresult
