@@ -121,7 +121,6 @@ Utils.prototype.plainText = function plainText(text) {
       }
     });
   });
-  console.log(workerresult);
   return {
     contentResult,
     workerresult
@@ -151,6 +150,7 @@ function GetCampaigns(nextpage = 1) {
     .http('/campaigns', {
       sort_field: 'send_time',
       sort_dir: 'DESC',
+      status: 'sent',
       count: pagenation.count,
       offset: pagenation.offset
     })

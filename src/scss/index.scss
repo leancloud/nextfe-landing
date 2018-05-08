@@ -174,7 +174,7 @@ footer{
     padding: 8px 0;
     padding-left: 10px;
     float: left;
-    margin-right: -1px;
+    margin-right: -3px;
     min-height: 22px // safari 展示错误
   }
   .group-button{
@@ -187,6 +187,7 @@ footer{
     border-bottom-right-radius: 4px;
     cursor: pointer;
     border: none;
+    min-width: 60px;
   }
   .group-button[disabled]{
     cursor: not-allowed;
