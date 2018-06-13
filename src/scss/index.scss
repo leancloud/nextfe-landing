@@ -234,6 +234,11 @@ footer{
     left: 5px;
   }
 }
+.des{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
 @media screen and (max-width: $content-min-widht) {
   header{
     .title{

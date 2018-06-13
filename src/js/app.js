@@ -1,6 +1,13 @@
 const BASE_URL = 'http://lcmidserver.leanapp.cn/3.0';
 const tplMap = {
   indexTpl: `
+          {{if des }}
+            <article class="des">
+                {{each des}}
+                  <p> {{des[$index]}} </p>
+                {{/each}}
+            </article>
+          {{/if}}
           {{if hasworker}}
             <article>
               <span class="button">工作机会</span>
@@ -177,19 +184,24 @@ function GetCampaigns(nextpage = 1) {
               });
             }
           }
+
+          /** 修正匹配内容 */
           const result = text.contentResult;
           const titleLen = result.title.length;
           const contentLen = result.content.length;
           const linkLen = result.link.length;
-
           let tmp = contentLen - titleLen;
+          result.des = [];
           if (tmp > 0) {
+            result.des = result.des.concat(result.content.slice(0, tmp));
             result.content = result.content.slice(tmp, contentLen);
           }
           tmp = linkLen - titleLen;
           if (tmp > 0) {
+            // result.des = result.des.concat(result.link.slice(0, tmp));
             result.link = result.link.slice(tmp, linkLen);
           }
+
 
           $('#content').html(template.render(tplMap.indexTpl, result));
 
