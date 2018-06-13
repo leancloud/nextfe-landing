@@ -1,4 +1,4 @@
-const BASE_URL = 'https://lcmidserver.leanapp.cn/3.0';
+const BASE_URL = 'http://lcmidserver.leanapp.cn/3.0';
 const tplMap = {
   indexTpl: `
           {{if hasworker}}
@@ -14,7 +14,7 @@ const tplMap = {
                   </div>
                 {{/if}}
                 <div class=" {{if imgs}}content-text{{/if}}">
-                  <h4>{{title[$index]}}</h4>
+                <a href="{{link[$index]}}" target="_blank"><h4>{{title[$index]}}</h4></a>
                   <p>{{content[$index]}}</p>
                   <a href="{{link[$index]}}" target="_blank">
                   {{link[$index] | url}}</a>
@@ -177,7 +177,22 @@ function GetCampaigns(nextpage = 1) {
               });
             }
           }
-          $('#content').html(template.render(tplMap.indexTpl, text.contentResult));
+          const result = text.contentResult;
+          const titleLen = result.title.length;
+          const contentLen = result.content.length;
+          const linkLen = result.link.length;
+
+          let tmp = contentLen - titleLen;
+          if (tmp > 0) {
+            result.content = result.content.slice(tmp, contentLen);
+          }
+          tmp = linkLen - titleLen;
+          if (tmp > 0) {
+            result.link = result.link.slice(tmp, linkLen);
+          }
+
+          $('#content').html(template.render(tplMap.indexTpl, result));
+
           if (text.workerresult.title.length > 0) {
             text.workerresult.hasworker = true;
           }
