@@ -191,9 +191,9 @@ function GetCampaigns(nextpage = 1) {
           const contentLen = result.content.length;
           const linkLen = result.link.length;
           let tmp = contentLen - titleLen;
-          result.des = [];
+          result.des = false;
           if (tmp > 0) {
-            result.des = result.des.concat(result.content.slice(0, tmp));
+            result.des = result.content.slice(0, tmp);
             result.content = result.content.slice(tmp, contentLen);
           }
           tmp = linkLen - titleLen;
