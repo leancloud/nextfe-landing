@@ -1,4 +1,5 @@
 const BASE_URL = 'http://lcmidserver.leanapp.cn/3.0';
+const LIST_ID = '248ba7cad4';
 const tplMap = {
   indexTpl: `
           {{if des }}
@@ -29,9 +30,9 @@ const tplMap = {
             </article>
           {{/each}}`,
   pagenationTpl: `
-              <span class="page-button pre" onClick="nextPage({{current-1}})">上一页</span>
+              <span class="page-button pre" onClick="prePage({{current-1}})">上一页</span>
               <span>{{current}}/{{total}}</span>
-              <span class="page-button next" onClick="prePage({{current+1}})">下一页</span>`
+              <span class="page-button next" onClick="nextPage({{current+1}})">下一页</span>`
 };
 
 function Utils() {
@@ -86,8 +87,6 @@ Utils.prototype.checkEmail = function checkEmail(email) {
 Utils.prototype.plainText = function plainText(text) {
   const textArr = text.split('\n\n===')[0].split('工作机会');
   const content = textArr[0].split('\n\n');
-  const worker = textArr[1].split('\n\n');
-  content.shift();
   const contentResult = {
     title: [],
     content: [],
@@ -107,27 +106,28 @@ Utils.prototype.plainText = function plainText(text) {
       }
     });
   });
-
   const workerresult = {
     title: [],
     content: [],
     link: []
   };
-
-  worker.forEach((v) => {
-    const arr = v.split('\n');
-    arr.forEach((data) => {
-      if (data.indexOf(' —— ') > -1) {
-        workerresult.title.push(data);
-      } else if (/^\d*K-\d*K/.test(data) || data.indexOf('全职') > -1 || data.indexOf('兼职') > -1) {
-        workerresult.content.push(data);
-      } else if (this.checkURL(data)) {
-        // eslint-disable-next-line
-        const objExp = new RegExp(/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/);
-        workerresult.link.push(data.match(objExp)[0]);
-      }
+  if (textArr[1]) {
+    const worker = textArr[1].split('\n\n');
+    worker.forEach((v) => {
+      const arr = v.split('\n');
+      arr.forEach((data) => {
+        if (data.indexOf('——') > -1) {
+          workerresult.title.push(data);
+        } else if (/^\d*K-\d*K/.test(data) || data.indexOf('全职') > -1 || data.indexOf('兼职') > -1) {
+          workerresult.content.push(data);
+        } else if (this.checkURL(data)) {
+          // eslint-disable-next-line
+          const objExp = new RegExp(/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/);
+          workerresult.link.push(data.match(objExp)[0]);
+        }
+      });
     });
-  });
+  }
   return {
     contentResult,
     workerresult
@@ -158,6 +158,7 @@ function GetCampaigns(nextpage = 1) {
       sort_field: 'send_time',
       sort_dir: 'DESC',
       status: 'sent',
+      list_id: LIST_ID,
       count: pagenation.count,
       offset: pagenation.offset
     })
@@ -198,7 +199,6 @@ function GetCampaigns(nextpage = 1) {
           }
           tmp = linkLen - titleLen;
           if (tmp > 0) {
-            // result.des = result.des.concat(result.link.slice(0, tmp));
             result.link = result.link.slice(tmp, linkLen);
           }
 
@@ -283,7 +283,6 @@ function SubscribeEmail(element, event) {
 }
 
 function IndexInit() {
-  // 模版压缩
   template.defaults.minimize = true;
   template.defaults.imports.url = (value) => {
     try {
