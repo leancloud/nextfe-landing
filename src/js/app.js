@@ -193,9 +193,6 @@ function GetCampaigns(nextpage = 1) {
           const titleLen = result.title.length;
           const contentLen = result.content.length;
           const linkLen = result.link.length;
-          console.log(result);
-          // eslint-disable-next-line
-          debugger;
           let tmp = contentLen - titleLen;
           result.des = false;
           if (tmp > 0) {
