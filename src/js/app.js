@@ -94,7 +94,9 @@ Utils.prototype.plainText = function plainText(text) {
   };
   content.forEach((v) => {
     v.split('\n').forEach((valstr) => {
-      const value = valstr.replace(/^-*/, '');
+      const value = valstr
+        .replace(/^-*/, '')
+        .replace(/^\*\|[\s\S]*\|\*$/, '');
       if (value && value.indexOf('点击') < 0 && value.length > '** '.length) {
         if (this.checkURL(value)) {
           contentResult.link.push(value);
@@ -191,6 +193,9 @@ function GetCampaigns(nextpage = 1) {
           const titleLen = result.title.length;
           const contentLen = result.content.length;
           const linkLen = result.link.length;
+          console.log(result);
+          // eslint-disable-next-line
+          debugger;
           let tmp = contentLen - titleLen;
           result.des = false;
           if (tmp > 0) {
