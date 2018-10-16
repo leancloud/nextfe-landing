@@ -155,6 +155,7 @@ function GetCampaigns(nextpage = 1) {
   } else {
     pagenation.current = 1;
   }
+  let id;
   util
     .http('/campaigns', {
       sort_field: 'send_time',
@@ -165,7 +166,7 @@ function GetCampaigns(nextpage = 1) {
       offset: pagenation.offset
     })
     .then((data) => {
-      const id = data.campaigns[0].id || '';
+      id = data.campaigns[0].id || '';
       pagenation.total = data.total_items || 0;
       if (id) {
         return util.http(`/campaigns/${id}/content`);
@@ -174,6 +175,10 @@ function GetCampaigns(nextpage = 1) {
     })
     .then((data) => {
       if (data && data.plain_text) {
+        if (id === '340d38c9bf') {
+          // 24 期邮件修改格式
+          data.plain_text = data.plain_text.replace('\n\n但是，难道监控就只是监控', '但是，难道监控就只是监控');
+        }
         const text = util.plainText(data.plain_text);
         if (text && text.contentResult) {
           if (data.html) {
