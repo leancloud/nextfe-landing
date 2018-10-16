@@ -1,4 +1,4 @@
-const BASE_URL = 'http://lcmidserver.leanapp.cn/3.0';
+const BASE_URL = 'https://lcmidserver.leanapp.cn/3.0';
 const LIST_ID = '248ba7cad4';
 const tplMap = {
   indexTpl: `
